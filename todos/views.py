@@ -90,7 +90,21 @@ class TodoListDeleteView(DeleteView):
 
 class TodoItemCreateView(CreateView):
     model = TodoItem
-    template_name = "todos_items/create.html"
+    template_name = "todo_items/create.html"
+    fields = [
+        "task",
+        "due_date",
+        "is_completed",
+        "list",
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy("show_todolist", args=[self.object.list.id])
+
+
+class TodoItemUpdateView(UpdateView):
+    model = TodoItem
+    template_name = "todo_items/update.html"
     fields = [
         "task",
         "due_date",
