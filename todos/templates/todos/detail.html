@@ -8,6 +8,11 @@
         <p>
             <a href= "{% url 'update_todolist' todolist.id %}">Edit</a>
         </p>
+        <p>
+            <a href="{% url 'delete_todolist' todolist.id %}">Delete</a> 
+            <!-- Whenever you’re sending your url to something with a int:pk in the
+            url you have to specify that id (name from database) as the client.id -->
+        </p>
         <h2>Tasks</h2>
         <table>
             <thead>

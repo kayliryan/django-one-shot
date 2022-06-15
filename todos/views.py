@@ -2,7 +2,7 @@
 from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from todos.models import TodoList
 from django.urls import reverse_lazy
 
@@ -75,3 +75,14 @@ class TodoListUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy("show_todolist", args=[self.object.id])
         # redirects back to the detail page for that todo list
+
+
+class TodoListDeleteView(DeleteView):
+    model = TodoList
+    template_name = "todos/delete.html"
+    success_url = reverse_lazy("list_todos")
+
+    # def get_success_url(self):
+    #     return reverse_lazy("list_todos")
+    # This does the exact same thing as above. just simplified to the line of
+    # code above since we're not redirecting to a certain list with an int
