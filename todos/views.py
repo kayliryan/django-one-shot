@@ -1,7 +1,10 @@
 # from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from todos.models import TodoList
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -43,3 +46,19 @@ class TodoListDetailView(DetailView):
     # # Put that list into the context
     # context["food_in_shopping_list"] = foods
     # return context
+
+
+class TodoListCreateView(CreateView):
+    model = TodoList
+    template_name = "todos/create.html"
+    fields = [
+        "name",
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy("show_todolist", args=[self.object.id])
+
+    # When do you use this????
+    # def form_valid(self, form):
+    #     form.instance.author = self.request.user
+    #     return super().form_valid(form)
