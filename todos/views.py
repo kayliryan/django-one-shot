@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from todos.models import TodoList
+from todos.models import TodoList, TodoItem
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -86,3 +86,17 @@ class TodoListDeleteView(DeleteView):
     #     return reverse_lazy("list_todos")
     # This does the exact same thing as above. just simplified to the line of
     # code above since we're not redirecting to a certain list with an int
+
+
+class TodoItemCreateView(CreateView):
+    model = TodoItem
+    template_name = "todos_items/create.html"
+    fields = [
+        "task",
+        "due_date",
+        "is_completed",
+        "list",
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy("show_todolist", args=[self.object.list.id])
