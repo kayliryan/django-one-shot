@@ -2,7 +2,7 @@
 from django.shortcuts import redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from todos.models import TodoList
 from django.urls import reverse_lazy
 
@@ -57,8 +57,21 @@ class TodoListCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy("show_todolist", args=[self.object.id])
+        # redirects to the detail page for that todo list
 
     # When do you use this????
     # def form_valid(self, form):
     #     form.instance.author = self.request.user
     #     return super().form_valid(form)
+
+
+class TodoListUpdateView(UpdateView):
+    model = TodoList
+    template_name = "todos/update.html"
+    fields = [
+        "name",
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy("show_todolist", args=[self.object.id])
+        # redirects back to the detail page for that todo list

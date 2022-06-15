@@ -5,6 +5,9 @@
 <main>
     <div>
         <h1>{{todolist.name}}</h1>
+        <p>
+            <a href= "{% url 'update_todolist' todolist.id %}">Edit</a>
+        </p>
         <h2>Tasks</h2>
         <table>
             <thead>
